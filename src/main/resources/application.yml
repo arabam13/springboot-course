@@ -1,0 +1,18 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+  info:
+    env:
+      enabled: true
+
+info:
+  application:
+    name: clinical application
+    description: clincicalapp developed on The Spring Framework (back) and React Typescript (front).
+    author: Mohamed
+    version: "@project.version@"
+spring:
+  profiles:
+    active: dev
