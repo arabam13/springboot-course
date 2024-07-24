@@ -1,7 +1,6 @@
-# spring:
-#   profiles:
-#     active: dev
-
-my:
-  custom:
-    property: text value property
+spring:
+  profiles:
+    active: dev
+# my:
+#   custom:
+#     property: text value property
