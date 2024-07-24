@@ -19,6 +19,7 @@ import com.course.api.repositories.StudentRepository;
 
 
 @RestController
+// @RequestMapping("/api/v1")
 public class StudentController {
 
     private final StudentRepository studentRepository;
