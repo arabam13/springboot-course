@@ -69,8 +69,8 @@ public class StudentController {
             Student updatedStudent = studentRepository.save(student);
             return ResponseEntity.ok(updatedStudent);
         } else {
-            // return ResponseEntity.notFound().build();
-            return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+            return ResponseEntity.notFound().build();
+            // return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
         }
     }
 }
