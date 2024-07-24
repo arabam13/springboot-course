@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/clinicaldb
+    url: jdbc:postgresql://localhost:5432/schooldb
     username: postgres
     password: password
 

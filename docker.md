@@ -1,3 +1,11 @@
+# add this
+
+host all all 172.20.0.1/32 trust
+
+# in following file
+
+vi /var/lib/postgresql/data/pg_hba.conf
+
 # Setup the mysql container:
 
 docker run -d -p 6666:3306 --name=docker-mysql --env="MYSQL_ROOT_PASSWORD=test1234" --env="MYSQL_DATABASE=clinicals" mysql
