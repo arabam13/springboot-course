@@ -13,6 +13,7 @@ public class CourseApplication {
 		// HellowWorld helloWorld = ctx.getBean("hellowWorld", HellowWorld.class);
 		FirstService firstService = ctx.getBean(FirstService.class);
 		System.out.println(firstService.tellStory());
+		System.out.println(firstService.getPropertyValue());
 	}
 
 }

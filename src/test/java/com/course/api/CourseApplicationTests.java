@@ -1,10 +1,10 @@
-package com.clinicalapi.clinicalapi;
+package com.course.api;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ClinicalapiApplicationTests {
+class CourseApplicationTests {
 
 	@Test
 	void contextLoads() {

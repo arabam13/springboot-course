@@ -2,7 +2,6 @@ package com.course.api;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 
 @Configuration
 public class ApplicationConfiguration {
@@ -13,7 +12,7 @@ public class ApplicationConfiguration {
 	}
 
 	@Bean
-	@Primary
+	// @Primary
 	public HellowWorld mySecondBean() {
 		return new HellowWorld("My second bean");
 	}
