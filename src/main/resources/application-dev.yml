@@ -15,7 +15,7 @@ spring:
         transaction:
           jta:
             platform: org.hibernate.service.jta.platform.internal.NoJtaPlatform
-
+    open-in-view: false
   sql:
     init:
       mode: always
