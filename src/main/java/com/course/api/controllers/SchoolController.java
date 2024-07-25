@@ -22,18 +22,19 @@ public class SchoolController{
     }
 
     @PostMapping("/schools")
-    public ResponseEntity<School> create(@RequestBody School body) {
+    public ResponseEntity<SchoolDTO> create(@RequestBody School body) {
          School savedSchool = schoolRepository.save(body);
-        return ResponseEntity.ok(savedSchool);
+        return ResponseEntity.ok(new SchoolDTO(savedSchool.getName()));
     }
 
     @GetMapping("/schools")
-    public List<SchoolDTO> findAll() {
+    public List<String> findAll() {
         // return schoolRepository.findAll();
         List<School> schools = schoolRepository.findAll();
         return schools
         .stream()
         .map(SchoolMapper::toDTO)
+        .map(schoolDTO -> schoolDTO.name())
         .toList();
     }
 
