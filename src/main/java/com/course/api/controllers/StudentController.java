@@ -68,8 +68,11 @@ public class StudentController {
     }
 
     @GetMapping("/students")
-    public List<Student> findAll() {
-        return studentRepository.findAll();
+    public List<StudentDTO> findAll() {
+        var students = studentRepository.findAll();
+        return students.stream()
+            .map(student -> new StudentDTO(student.getFirstName(), student.getLastName(), student.getEmail(), student.getSchool().getId()))
+            .toList();
     }
 
     @GetMapping("/students/{student-id}")

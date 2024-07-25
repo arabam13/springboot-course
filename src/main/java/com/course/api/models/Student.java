@@ -36,11 +36,12 @@ public class Student {
 
     public Student() {
     }
-    public Student(String firstName, String lastName, String email, int age) {
+    public Student(String firstName, String lastName, String email, int age, School school) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.age = age;
+        this.school = school;
     }
 
     public int getId() {
