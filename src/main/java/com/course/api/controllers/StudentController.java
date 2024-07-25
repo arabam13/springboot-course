@@ -14,7 +14,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.course.api.models.School;
 import com.course.api.models.Student;
+import com.course.api.records.StudentDTO;
+import com.course.api.records.StudentResponseDTO;
 import com.course.api.repositories.StudentRepository;
 
 
@@ -29,8 +32,27 @@ public class StudentController {
 
     
     @PostMapping("/students")
-    public Student create(@RequestBody Student student) {
-        return studentRepository.save(student);
+    public StudentResponseDTO create(@RequestBody StudentDTO dto) {
+        Student student = toStudent(dto);
+        studentRepository.save(student);
+        return toStudentResponseDTO(student);
+    }
+
+    public Student toStudent(StudentDTO dto) {
+        Student student = new Student();
+        student.setFirstName(dto.firstName());
+        student.setLastName(dto.lastName());
+        student.setEmail(dto.email());
+
+        School school = new School();
+        school.setId(dto.schoolId());
+        student.setSchool(school);
+
+        return student;
+    }
+
+    public StudentResponseDTO toStudentResponseDTO(Student student) {
+        return new StudentResponseDTO(student.getFirstName(), student.getLastName(), student.getEmail());
     }
 
     @GetMapping("/students")
