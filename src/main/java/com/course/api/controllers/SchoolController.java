@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.course.api.mappers.SchoolMapper;
 import com.course.api.models.School;
+import com.course.api.records.SchoolDTO;
 import com.course.api.repositories.SchoolRepository;
 
 @RestController
@@ -26,11 +28,13 @@ public class SchoolController{
     }
 
     @GetMapping("/schools")
-    public List<School> findAll() {
-        return schoolRepository.findAll();
-        // List<School> schools = schoolRepository.findAll();
-        // return schools.stream().map(SchoolMapper::toDTO)
-        // .collect(Collectors.toList());
+    public List<SchoolDTO> findAll() {
+        // return schoolRepository.findAll();
+        List<School> schools = schoolRepository.findAll();
+        return schools
+        .stream()
+        .map(SchoolMapper::toDTO)
+        .toList();
     }
 
 }

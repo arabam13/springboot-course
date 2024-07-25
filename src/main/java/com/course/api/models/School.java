@@ -27,10 +27,8 @@ public class School {
 
     public School() {
     }
-    public School(int id, String name, List<Student> students) {
-        this.id = id;
+    public School(String name) {
         this.name = name;
-        this.students = students;
     }
 
     public int getId() {
