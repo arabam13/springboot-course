@@ -3,6 +3,7 @@ package com.course.api.models;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import jakarta.persistence.CascadeType;
@@ -15,17 +16,21 @@ import jakarta.persistence.OneToMany;
 public class School {
     @Id
     @GeneratedValue
+    @JsonIgnore
     private int id;
     private String name;
     @OneToMany(mappedBy = "school",
         cascade = CascadeType.ALL)
     @JsonManagedReference
+    @JsonIgnore
     private List<Student> students;
 
     public School() {
     }
-    public School(String name) {
+    public School(int id, String name, List<Student> students) {
+        this.id = id;
         this.name = name;
+        this.students = students;
     }
 
     public int getId() {

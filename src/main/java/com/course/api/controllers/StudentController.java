@@ -18,6 +18,7 @@ import com.course.api.models.School;
 import com.course.api.models.Student;
 import com.course.api.records.StudentDTO;
 import com.course.api.records.StudentResponseDTO;
+import com.course.api.repositories.SchoolRepository;
 import com.course.api.repositories.StudentRepository;
 
 
@@ -26,33 +27,44 @@ import com.course.api.repositories.StudentRepository;
 public class StudentController {
 
     private final StudentRepository studentRepository;
-    public StudentController(StudentRepository studentRepository) {
+    private final SchoolRepository schoolRepository;
+    public StudentController(StudentRepository studentRepository, SchoolRepository schoolRepository) {
         this.studentRepository = studentRepository;
+        this.schoolRepository = schoolRepository;
     }
 
     
     @PostMapping("/students")
-    public StudentResponseDTO create(@RequestBody StudentDTO dto) {
-        Student student = toStudent(dto);
-        studentRepository.save(student);
+    public ResponseEntity<StudentResponseDTO>  create(@RequestBody StudentDTO dto) {
+        Optional<Student> student = toStudent(dto);
         return toStudentResponseDTO(student);
     }
 
-    public Student toStudent(StudentDTO dto) {
+    public Optional<Student> toStudent(StudentDTO dto) {
         Student student = new Student();
         student.setFirstName(dto.firstName());
         student.setLastName(dto.lastName());
         student.setEmail(dto.email());
 
-        School school = new School();
-        school.setId(dto.schoolId());
-        student.setSchool(school);
-
-        return student;
+        Optional<School> existingSchool = schoolRepository.findById(dto.schoolId());
+        if (existingSchool.isPresent()) {
+            student.setSchool(existingSchool.get());
+            studentRepository.save(student);
+            return Optional.of(student);
+        } else {
+            return Optional.empty();
+        }
+        
     }
 
-    public StudentResponseDTO toStudentResponseDTO(Student student) {
-        return new StudentResponseDTO(student.getFirstName(), student.getLastName(), student.getEmail());
+    public ResponseEntity<StudentResponseDTO> toStudentResponseDTO(Optional<Student>  optionalStudent) {
+        if (optionalStudent.isPresent()) {
+            Student student = optionalStudent.get();
+            return ResponseEntity.ok(new StudentResponseDTO(student.getFirstName(), student.getLastName(), student.getEmail()));
+        }else{
+            return ResponseEntity.notFound().build();
+        }
+
     }
 
     @GetMapping("/students")
