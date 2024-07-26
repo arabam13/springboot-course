@@ -8,34 +8,26 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.course.api.mappers.SchoolMapper;
 import com.course.api.models.School;
 import com.course.api.records.SchoolDTO;
-import com.course.api.repositories.SchoolRepository;
+import com.course.api.services.SchoolService;
 
 @RestController
 public class SchoolController{
 
-    private final SchoolRepository schoolRepository;
-    public SchoolController(SchoolRepository schoolRepository){
-        this.schoolRepository = schoolRepository;
+    private final SchoolService schoolService;
+    public SchoolController(SchoolService schoolService){
+        this.schoolService = schoolService;
     }
 
     @PostMapping("/schools")
     public ResponseEntity<SchoolDTO> create(@RequestBody School body) {
-         School savedSchool = schoolRepository.save(body);
-        return ResponseEntity.ok(new SchoolDTO(savedSchool.getName()));
+        return schoolService.createSchool(body);
     }
 
     @GetMapping("/schools")
     public List<String> findAll() {
-        // return schoolRepository.findAll();
-        List<School> schools = schoolRepository.findAll();
-        return schools
-        .stream()
-        .map(SchoolMapper::toDTO)
-        .map(schoolDTO -> schoolDTO.name())
-        .toList();
+        return schoolService.findAllSchools();
     }
 
 }
