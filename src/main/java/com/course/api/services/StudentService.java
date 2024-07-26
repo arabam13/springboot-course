@@ -41,12 +41,16 @@ public class StudentService {
         }
     }
 
-    public Optional<Student> findStudentById(Integer id) {
-        return studentRepository.findById(id);
+    public StudentResponseDTO findStudentById(Integer id) {
+        Student student = studentRepository.findById(id).orElse(null);
+        return new StudentResponseDTO(student.getFirstName(), student.getLastName(), student.getEmail());
     }
 
-    public List<Student> findStudentByFirstname(String firstname) {
-        return studentRepository.findALLByFirstName(firstname);
+    public List<StudentResponseDTO> findStudentByFirstname(String firstname) {
+        List<Student> students = studentRepository.findALLByFirstName(firstname);
+        return students.stream()
+            .map(student -> new StudentResponseDTO(student.getFirstName(), student.getLastName(), student.getEmail()))
+            .toList();
     }
 
     public void deleteStudent(Integer id) {

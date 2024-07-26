@@ -1,7 +1,6 @@
 package com.course.api.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -41,12 +40,12 @@ public class StudentController {
     }
 
     @GetMapping("/students/{student-id}")
-    public Optional<Student> findStudentById(@PathVariable("student-id") Integer id) {
+    public StudentResponseDTO findStudentById(@PathVariable("student-id") Integer id) {
         return studentService.findStudentById(id);
     }
 
     @GetMapping("/students/search/{student-firstname}")
-    public List<Student> findStudentByFirstname(@PathVariable("student-firstname") String firstname) {
+    public List<StudentResponseDTO> findStudentByFirstname(@PathVariable("student-firstname") String firstname) {
         return studentService.findStudentByFirstname(firstname);
     }
 
