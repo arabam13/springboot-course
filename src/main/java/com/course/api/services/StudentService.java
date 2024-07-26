@@ -30,15 +30,16 @@ public class StudentService {
             .toList();
     }
 
-    public ResponseEntity<StudentResponseDTO>  createStudent(StudentDTO dto) {
+    public StudentResponseDTO  createStudent(StudentDTO dto) {
         Optional<Student> student = studentMapper.toStudent(dto);
 
-        if (student.isPresent()) {
-            StudentResponseDTO responseDTO = studentMapper.toStudentResponseDTO(student);
-            return ResponseEntity.ok(responseDTO);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        // if (student.isPresent()) {
+        StudentResponseDTO responseDTO = studentMapper.toStudentResponseDTO(student);
+        return responseDTO;
+        // } 
+        // else {
+        //     return ResponseEntity.notFound().build();
+        // }
     }
 
     public StudentResponseDTO findStudentById(Integer id) {
