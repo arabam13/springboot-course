@@ -1,11 +1,23 @@
-version: "3.8"
-
 services:
-  db:
-    image: postgres:alpine
-    ports:
-      - "5432:5432"
+  postgres:
+    container_name: postgres-sql-schooldb
+    image: postgres:latest
     environment:
-      POSTGRES_USER: postgres
+      POSTGRES_USER: username
       POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data
       POSTGRES_DB: schooldb
+    volumes:
+      - postgres:/data/postgres
+    ports:
+      - 5432:5432
+    networks:
+      - spring-course
+    restart: unless-stopped
+networks:
+  spring-course:
+    driver: bridge
+
+volumes:
+  postgres:
+    driver: local
